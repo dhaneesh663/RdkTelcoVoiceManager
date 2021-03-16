@@ -386,6 +386,7 @@
     "setParameterOptionalList": {
       "description": "Optional data model parameter list for setParameters action",
       "anyOf": [
+        { "$ref": "#/definitions/servicesVoiceHalInit" },
         { "$ref": "#/definitions/voiceServiceX_RDK_DisableLoopCurrentUntilRegistered" },
         { "$ref": "#/definitions/voiceServiceX_RDK_BoundIfName" },
         { "$ref": "#/definitions/voiceServiceX_RDK_IpAddressFamily" },
@@ -833,6 +834,24 @@
         "Stopping",
         "Error"
       ]
+    },
+    "servicesVoiceHalInit": {
+      "description": "The top-level object for VoIP CPE.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^Device\\.Services\\.VoiceHalInit$"
+        },
+        "type": {
+          "type": "string",
+          "const": "boolean"
+        },
+        "value": {
+          "type": "boolean"
+        }
+      }
     },
     "voiceService": {
       "description": "The top-level object for VoIP CPE. (Access = Read-Only)",

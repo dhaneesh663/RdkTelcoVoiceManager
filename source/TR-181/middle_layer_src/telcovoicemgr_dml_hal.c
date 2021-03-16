@@ -38,6 +38,8 @@ static ANSC_STATUS voice_process_get_info(hal_param_t *get_param);
 #ifndef FEATURE_RDKB_VOICE_DM_TR104_V2
 static ANSC_STATUS get_voice_line_stats(const json_object *reply_msg, TELCOVOICEMGR_DML_VOICESERVICE_STATS *stVoiceStats);
 #endif
+
+#define HALINIT  "Devices.Services.VoiceHalInit"
 /*******************************************************************************
  *                        LOCAL FUNCTION TYPES
  *******************************************************************************/
@@ -59,7 +61,7 @@ static ANSC_STATUS get_voice_line_stats(const json_object *reply_msg, TELCOVOICE
  **************************************************************************************************/
 ANSC_STATUS TelcoVoiceMgrHal_Init()
 {
-
+    bool bStatus = 1;
     if (json_hal_client_init(TELCOVOICEMGR_CONF_FILE) != RETURN_OK)
     {
         CcspTraceError(("%s - %d Failed to initialise json hal client library \n", __FUNCTION__, __LINE__));
@@ -99,8 +101,34 @@ ANSC_STATUS TelcoVoiceMgrHal_Init()
         CcspTraceInfo(("Failed to connect to the hal server. \n"));
         return ANSC_STATUS_FAILURE;
     }
+    if(TelcoVoiceMgrHal_InitData(bStatus) !=  ANSC_STATUS_SUCCESS)
+    {
+        CcspTraceInfo(("Failed to initialise data\n"));
+        return ANSC_STATUS_FAILURE;
+    }
     return ANSC_STATUS_SUCCESS;
 
+}
+
+ANSC_STATUS TelcoVoiceMgrHal_InitData(bool bStatus)
+{
+    char strValue[JSON_MAX_VAL_ARR_SIZE]={0};
+    char strName[JSON_MAX_STR_ARR_SIZE]={0};
+
+    snprintf(strName,JSON_MAX_STR_ARR_SIZE, "%s", HALINIT);
+    if(bStatus)
+    {
+       snprintf(strValue,JSON_MAX_VAL_ARR_SIZE,"%s","true");
+    }
+    else
+    {
+        snprintf(strValue,JSON_MAX_VAL_ARR_SIZE,"%s","false");
+    }
+    if (TelcoVoiceMgrHal_SetParam(strName,PARAM_BOOLEAN,strValue) != ANSC_STATUS_SUCCESS)
+    {
+       return ANSC_STATUS_FAILURE;
+    }
+    return ANSC_STATUS_SUCCESS;
 }
 
 static json_object *create_json_request_message(eActionType request_type, const CHAR *param_name, eParamType type, CHAR *param_val)

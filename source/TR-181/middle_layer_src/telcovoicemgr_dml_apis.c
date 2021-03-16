@@ -20,7 +20,7 @@
 #include "telcovoicemgr_dml_apis.h"
 #include "ccsp_dm_api.h"
 #include "telcovoicemgr_dml_backendmgr.h"
-
+#include "telcovoicemgr_dml_hal.h"
 
 #ifdef _ANSC_LINUX
 #include <stdio.h>
@@ -184,6 +184,9 @@ ANSC_STATUS TelcoVoiceMgrServicesRemove(ANSC_HANDLE hThisObject)
 {
     ANSC_STATUS                  returnStatus        = ANSC_STATUS_SUCCESS;
     PTELCOVOICEMGR_DATAMODEL_SERVICES     pMyObject           = (PTELCOVOICEMGR_DATAMODEL_SERVICES)hThisObject;
+    bool bStatus = 0;
+
+    TelcoVoiceMgrHal_InitData(bStatus);
 
     //delete DML data 
     TelcoVoiceMgrDmlDataDelete();
