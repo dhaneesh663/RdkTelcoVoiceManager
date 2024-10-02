@@ -53,6 +53,8 @@ static size_t AvroRTSerializedSize;
 static size_t OneAvroRTSerializedSize;
 static char AvroRTSerializedBuf[WRITER_BUF_SIZE];
 
+
+#ifndef FEATURE_RDKB_VOICE_DM_TR104_V2
 // MD5SUM VoiceReport.avsc = b3b6d1668867a02f070437e425cf7348 version 2
 
 static uint8_t RT_HASH[16] = {0xbd,0x95,0xe5,0xe3,0x37,0x2a,0x4e,0x03,
@@ -61,8 +63,21 @@ static uint8_t RT_HASH[16] = {0xbd,0x95,0xe5,0xe3,0x37,0x2a,0x4e,0x03,
 // TODO: Need to check and include correct UUID below
 static uint8_t RT_UUID[16] = {0xb3,0xb6,0xd1,0x66,0x88,0x67,0xa0,0x2f,
                               0x07,0x04,0x37,0xe4,0x25,0xcf,0x73,0x48};
+// schema ID format is <UUID>/<hash>
+char * VoiceServiceReportSchemaID = "b3b6d166-8867-a02f-0704-37e425cf7348/bd95e5e3372a4e03bcf79a3f312085a6";
+#else
+//md5sum VoiceDiagnostics_V2.avsc
+//45dd91e0a9f36aea3fe85022a2bb7539  VoiceDiagnostics_V2.avsc
+static uint8_t RT_HASH[16] = {0x45,0xdd,0x91,0xe0,0xa9,0xf3,0x6a,0xea,
+                              0x3f,0xe8,0x50,0x22,0xa2,0xbb,0x75,0x39};
 
-char * VoiceServiceReportSchemaID = "bd95e5e3-372a-4e03-bcf7-9a3f312085a6/b3b6d1668867a02f070437e425cf7348";
+// TR104v2 UUID 8b5421d4600ca93faf50692eed7da7b4
+static uint8_t RT_UUID[16] = {0x8b,0x54,0x21,0xd4,0x60,0x0c,0xa9,0x3f,
+                              0xaf,0x50,0x69,0x2e,0xed,0x7d,0xa7,0xb4};
+
+// schema ID format is <UUID>/<hash>
+char * VoiceServiceReportSchemaID = "8b5421d4-600c-a93f-af50-692eed7da7b4/45dd91e0a9f36aea3fe85022a2bb7539";
+#endif
 
 #define WAIT_TIME_100_MS_IN_NSEC (100 * 1000000)
 #define TIME_1_SEC_IN_NSEC 1000000000
