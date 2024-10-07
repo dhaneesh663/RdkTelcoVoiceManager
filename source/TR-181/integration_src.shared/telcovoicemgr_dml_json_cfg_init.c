@@ -344,12 +344,6 @@ static ANSC_STATUS jsonCfgUpdateLocalTimeZone(char *fullName, cJSON *item)
 {
     char *pBuffer = NULL;
 
-    if (syscfg_init() < 0)
-    {
-        CcspTraceError(("[%s]::[%d] Failed to initialize syscfg\n", __FUNCTION__, __LINE__));
-        return ANSC_STATUS_FAILURE;
-    }
-
     pBuffer = malloc(JSON_MAX_STR_ARR_SIZE);
     if(pBuffer == NULL)
     {
