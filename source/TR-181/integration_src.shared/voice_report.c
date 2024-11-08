@@ -66,6 +66,7 @@ char * VoiceServiceReportSchemaID = "bd95e5e3-372a-4e03-bcf7-9a3f312085a6/b3b6d1
 
 #define WAIT_TIME_100_MS_IN_NSEC (100 * 1000000)
 #define TIME_1_SEC_IN_NSEC 1000000000
+#define DEFAULT_WAIT_TIME_1_SEC 1
 
 /*
  * Returns the size of Schema contents
@@ -1962,7 +1963,7 @@ void *StartVoiceReporting(void *args)
     ULONG uDftOverrideTTL = 0;
     ULONG uDftReportingPeriod = 0;
     ULONG uOverrideReportingPeriod = 0;
-    ULONG waitingTimePeriod = 0;
+    ULONG waitingTimePeriod = DEFAULT_WAIT_TIME_1_SEC;
 
     while (!ret && VoiceServiceReportGetStatus())
     {
@@ -2004,8 +2005,7 @@ void *StartVoiceReporting(void *args)
             }
             else
             {
-                //disabled
-                waitingTimePeriod = 0;
+                waitingTimePeriod = DEFAULT_WAIT_TIME_1_SEC;
             }
         }
         WaitForPthreadConditionTimeout(waitingTimePeriod);
