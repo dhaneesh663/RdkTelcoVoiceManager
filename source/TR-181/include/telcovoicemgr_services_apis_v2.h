@@ -3208,7 +3208,7 @@ ANSC_STATUS TelcoVoiceMgrDmlSetLinkState(TELCOVOICEMGR_VOICE_IP_LINK_STATE linkS
 ANSC_STATUS TelcoVoiceMgrDmlSetDirectoryNumber(UINT uiService, UINT uiProfile, UINT uiLine, char* pDirName);
 ANSC_STATUS TelcoVoiceMgrDmlSetLineEnable(UINT uiService, UINT uiProfile, UINT uiLine, BOOL LineEnable);
 ANSC_STATUS TelcoVoiceMgrDmlGetLineStatus(UINT uiService, UINT uiProfile, UINT uiLine, UINT *pLineStatus);
-ANSC_STATUS TelcoVoiceMgrDmlGetLineCallState(UINT uiService, UINT uiProfile, UINT uiLine, ULONG* pCallState);
+ANSC_STATUS TelcoVoiceMgrDmlGetLineCallState(UINT uiService, UINT uiProfile, UINT uiLine, UINT *pCallState);
 
 ANSC_STATUS TelcoVoiceMgrDmlSetOutboundProxy(UINT uiService, UINT uiProfile, char* pProxyName);
 ANSC_STATUS TelcoVoiceMgrDmlSetProxyServer(UINT uiService, UINT uiProfile, char* pProxyServer);

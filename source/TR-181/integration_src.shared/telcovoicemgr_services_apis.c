@@ -2409,7 +2409,7 @@ ANSC_STATUS TelcoVoiceMgrDmlGetLineStatus(uint32_t uiService, uint32_t uiProfile
 * @param uint32_t uiService - input the voice service index
 * @param uint32_t uiProfile - input the Voice Profile Index
 * @param uint32_t uiLine    - input the Voice Line Index
-* @param ULONG  *pCallState - output the voice Line Status
+* @param uint32_t *pCallState - output the voice Line Status
 *
 * @return The status of the operation.
 * @retval ANSC_STATUS_SUCCESS if successful.
@@ -2420,7 +2420,7 @@ ANSC_STATUS TelcoVoiceMgrDmlGetLineStatus(uint32_t uiService, uint32_t uiProfile
 *
 */
 
-ANSC_STATUS TelcoVoiceMgrDmlGetLineCallState(uint32_t uiService, uint32_t uiProfile, uint32_t uiLine, ULONG* pCallState)
+ANSC_STATUS TelcoVoiceMgrDmlGetLineCallState(uint32_t uiService, uint32_t uiProfile, uint32_t uiLine, uint32_t *pCallState)
 {
    //Fetch line status from voice stack
     ANSC_STATUS returnStatus = ANSC_STATUS_FAILURE;

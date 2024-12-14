@@ -243,7 +243,7 @@ BOOL TelcoVoiceMgrDml_TerminalList_GetParamUlongValue(ANSC_HANDLE hInsContext, c
         else
         {
             CcspTraceError(("%s:%d:: Status:get failed \n", __FUNCTION__, __LINE__));
-            *puLong = CLIENT_STATUS_DISABLED;
+            *puLong = TERMINAL_STATUS_DISABLED;
             ret = TRUE;
         }
     }
