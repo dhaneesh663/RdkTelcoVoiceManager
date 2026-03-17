@@ -2261,6 +2261,7 @@ char *getDeviceMac()
     char server_ip[16] = {0};
     int fd = 0,server_port;
     unsigned int token;
+    int retryCount = 0;
 
     CcspTraceInfo((" VOICE REPORT %s ENTER\n", __FUNCTION__));
 
@@ -2273,9 +2274,13 @@ char *getDeviceMac()
         return NULL;
     }
 
-    if (!strlen(deviceMAC))
+    while (!strlen(deviceMAC))
     {
         char deviceMACValue[32] = {'\0'};
+        if (strlen(deviceMAC))
+        {
+            break;
+        }
 
         if (CCSP_SUCCESS == sysevent_get(fd, token, "eth_wan_mac", deviceMACValue, sizeof(deviceMACValue)) && deviceMACValue[0] != '\0')
         {
@@ -2284,7 +2289,12 @@ char *getDeviceMac()
             pthread_mutex_unlock(&device_mac_mutex);
             CcspTraceInfo(("deviceMAC is %s\n", deviceMAC));
         }
-
+        else
+        {
+            retryCount++;
+            CcspTraceInfo(("Unable to get eth_wan_mac, Retry count = %d  current value = %s\n", retryCount, deviceMAC));
+            sleep(1);
+        }
     }
 
     //Close sysevent
